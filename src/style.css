@@ -52,7 +52,7 @@ li:first-letter {
 }
 
 .weather-temperature strong {
-  color: #000;
+  color: rgb(33, 33, 33);
   font-size: 64px;
   font-weight: 400;
   line-height: 1;
@@ -62,4 +62,14 @@ li:first-letter {
   position: relative;
   font-size: 16px;
   top: -34px;
+}
+
+#celsius-link,
+#fahrenheit-link {
+  text-decoration: none;
+}
+
+.weather-temperature .active {
+  color: rgb(33, 33, 33);
+  cursor: default;
 }
