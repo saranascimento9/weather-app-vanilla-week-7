@@ -116,6 +116,25 @@ li:first-letter {
   height: 30px;
 }
 
+.weather-forecast {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.weather-forecast-date {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.weather-forecast-temperatures {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.forecast-min {
+  opacity: 0.6;
+}
+
 #stars {
   content: "e";
   background: transparent;
