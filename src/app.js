@@ -75,6 +75,36 @@ function displayCelsiustTemp(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      ` 
+    <div class="col-2">
+      <div class="weather-forecast-date">${day}</div>
+      <img
+        src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+        alt=""
+        width="35px"
+      />
+      <div class="weather-forecast-temperatures">
+        <span class="forecast-max">18º</span>
+        <span class="forecast-min">12º</span>
+      </div>
+    </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let celsiusTemperature = null;
 
 let form = document.querySelector("#search-form");
@@ -87,3 +117,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiustTemp);
 
 search("Sintra");
+displayForecast();
