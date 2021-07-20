@@ -21,6 +21,43 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      ` 
+    <div class="col-2">
+      <div class="weather-forecast-date">${day}</div>
+      <img
+        src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+        alt=""
+        width="35px"
+      />
+      <div class="weather-forecast-temperatures">
+        <span class="forecast-max">18º</span>
+        <span class="forecast-min">12º</span>
+      </div>
+    </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let apiKey = "5bceb710884f2fc43e7a158f3af93778";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&unit=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -43,6 +80,8 @@ function displayTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -75,36 +114,6 @@ function displayCelsiustTemp(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-
-  let forecastHTML = `<div class="row">`;
-
-  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
-
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      ` 
-    <div class="col-2">
-      <div class="weather-forecast-date">${day}</div>
-      <img
-        src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-        alt=""
-        width="35px"
-      />
-      <div class="weather-forecast-temperatures">
-        <span class="forecast-max">18º</span>
-        <span class="forecast-min">12º</span>
-      </div>
-    </div>`;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-
-  forecastElement.innerHTML = forecastHTML;
-}
-
 let celsiusTemperature = null;
 
 let form = document.querySelector("#search-form");
@@ -117,4 +126,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiustTemp);
 
 search("Sintra");
-displayForecast();
